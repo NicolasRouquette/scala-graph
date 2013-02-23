@@ -25,35 +25,31 @@ object GraphEdge {
    */
   trait EdgeLike[+N] extends Iterable[N] with Serializable
   {  
-    /** The end nodes joined by this edge.
-     * 
-     * Nodes will typically be represented by Tuples. Alternatively subclasses of `Iterable`
-     * implementing Product, such as List, may also be used.
-     * In the latter case be aware of higher memory footprint.
+    /** The nodes joined by this edge represented by a Tuple or a `List`. 
      */
     def nodes: Product
-    /** Iterator for the nodes (end-points) of this edge.
+    /** Iterator over the nodes (end-points) of this edge.
      */
     def iterator: Iterator[N] = nodes match {
       case i: Iterable[N] => i.iterator
       case p: Product   => p.productIterator.asInstanceOf[Iterator[N]] 
     }
-    /** Sequence of the end points of this edge.
+    /** Same as `nodes` but as a `Seq`.
      */
     def nodeSeq: Seq[N] = iterator.toSeq
     /**
-     * The first node. Same as _n(0).
+     * The first node. Same as `_n(0)`.
      */
     @inline final def _1: N = nodes.productElement(0).asInstanceOf[N] 
     /**
-     * The second node. Same as _n(1).
+     * The second node. Same as `_n(1)`.
      */
     def _2: N =  nodes match {
       case i: Iterable[N] => i.drop(1).head
       case p: Product     => nodes.productElement(1).asInstanceOf[N] 
     }  
     /**
-     * The n'th node with 0 <= n < arity.
+     * The n'th node with 0 <= n < `arity`.
      */
     def _n(n: Int): N = (n: @scala.annotation.switch) match {
       case 0 => _1
