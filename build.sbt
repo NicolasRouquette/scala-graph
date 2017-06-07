@@ -56,7 +56,8 @@ lazy val misc = Project(
   settings = defaultSettings ++ Seq(
     name := "Graph Miscellaneous",
     version := Version.misc,
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.7"
+    // WIP https://github.com/scala-graph/scala-graph/issues/75
+    libraryDependencies += "log4j" % "log4j" % "1.2.17"
   )
 ) dependsOn core
 
