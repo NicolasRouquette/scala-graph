@@ -2,11 +2,11 @@ package logging
 
 import scala.language.implicitConversions
 
-import org.slf4j.LoggerFactory
-import org.slf4j.Logger
+import org.apache.log4j.LogManager
+import org.apache.log4j.Logger
 
 trait Logging {
-  lazy val log = LoggerFactory.getLogger(getClass)
+  lazy val log = LogManager.getLogger(getClass)
   
   def trace(msg: => String) =                   { if(log.isTraceEnabled) log.trace(msg) }
   def trace(msg: => String, e: Throwable) =     { if(log.isTraceEnabled) log.trace(msg, e) }
